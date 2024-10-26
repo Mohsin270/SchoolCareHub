@@ -1,0 +1,125 @@
+.admin-container {
+    display: flex;
+    font-family: Arial, sans-serif;
+}
+
+.admin-sidebar {
+    width: 200px;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+}
+
+.admin-sidebar h2 {
+    text-align: center;
+}
+
+.admin-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.admin-sidebar ul li {
+    margin: 20px 0;
+}
+
+.admin-sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.admin-sidebar ul li a:hover {
+    text-decoration: underline;
+    color: #dc3545;
+}
+
+.admin-main {
+    margin-left: 270px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.admin-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.admin-form input, .admin-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.admin-form button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-form button:hover {
+    background-color: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+.btn-edit, .btn-delete, .btn-approve, .btn-reject, .btn-view, .btn-resolve {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 4px;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-approve {
+    background-color: #28a745;
+}
+
+.btn-reject {
+    background-color: #ffc107;
+}
+
+.btn-view {
+    background-color: #17a2b8;
+}
+
+.btn-resolve {
+    background-color: #6c757d;
+}
+
+.btn-edit:hover, .btn-delete:hover, .btn-approve:hover, .btn-reject:hover, .btn-view:hover, .btn-resolve:hover {
+    opacity: 0.8;
+}
