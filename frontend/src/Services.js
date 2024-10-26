@@ -1,9 +1,4 @@
 import React from 'react';
-import blogImage1 from "./images/care1.jpeg"; // Update with your images
-import blogImage2 from "./images/school2.jpg";
-import blogImage3 from "./images/school3.jpg";
-import blogImage4 from "./images/school4.jpg";
-import Slider from 'react-slick';
 import Footer from './components/footer';
 import Navbar from './components/Navbar';
 import { Link } from 'react-router-dom';

@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 import Footer from './components/footer';
 import Navbar from './components/Navbar';
 import blogImage1 from './images/care1.jpeg';
 import blogImage2 from './images/school2.jpg';
 import blogImage3 from './images/school3.jpg';
 import blogImage4 from './images/school4.jpg';
-import blogImage5 from './images/school5.jpg'; // Add more images as needed
-import { Link } from 'react-router-dom';
-
-// Import the necessary CSS for react-slick
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import blogImage5 from './images/school5.jpg';
+import Slider from 'react-slick';
 
 const Blogs = () => {
   // Blog data
