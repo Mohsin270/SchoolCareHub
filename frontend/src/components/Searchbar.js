@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 const Searchbar = () => {
     const [location, setLocation] = useState('');
@@ -19,11 +18,10 @@ const Searchbar = () => {
                 params: { location, category }
             });
             if (response.data.length > 0) {
-                console.log(response.data);
                 navigate('/listing', { state: { data: response.data } });
             } else {
-                navigate('/listing', { state: { data: response.data } });
                 alert('No data found.');
+                navigate('/listing', { state: { data: [] } }); // Send empty array if no data found
             }
         } catch (err) {
             console.error(err);
@@ -32,41 +30,30 @@ const Searchbar = () => {
     };
 
     return (
-        <div>
-            <form
-            id="searchbar"
-            onSubmit={handleSearch}
-            className="flex flex-col md:flex-row justify-between gap-4 bg-[rgba(148,167,169,0.311)] shadow-xl rounded-lg p-8"
-            >
-            <div className="input-group flex flex-col md:flex-row items-center w-full md:w-5/6">
-                <input
-                className="form-control w-full md:w-1/2 px-4 py-3 rounded-full border border-gray-300 text-gray-800 placeholder-gray-400
-                focus:border-purple-500 focus:ring-purple-500 focus:outline-none focus:ring focus:ring-opacity-50 transition"
-                type="search"
-                placeholder="Enter Location 🔍"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                />
-                <select
-                className="form-select w-full md:w-1/3 px-4 py-3 bg-gray-100 rounded-full border border-gray-300
-                focus:border-purple-500 focus:ring-purple-500 focus:outline-none focus:ring focus:ring-opacity-50 transition"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                >
-                <option value="">Select Institute Type</option>
-                <option value="School">Schools</option>
-                <option value="ChildCare">Daycares</option>
-                </select>
-            </div>
-            <button
-                className="w-full md:w-32 bg-purple-600 text-white font-serif py-3 rounded-lg hover:bg-purple-700 transition duration-300 
-                focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-                type="submit"
-            >
-                Search
-            </button>
-            </form>
-        </div>
+        <form onSubmit={handleSearch} className="flex flex-col md:flex-row items-center justify-between bg-transparent shadow-lg p-4 transition duration-300 ease-in-out hover:shadow-xl">
+        <input
+            type="search"
+            placeholder="Enter Location 🔍"
+            className="flex-grow px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+        />
+        <select
+            className="mt-2 md:mt-0 md:ml-4 flex-shrink-0 px-4 py-2 rounded-full border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+        >
+            <option value="">Select Category</option>
+            <option value="School">School</option>
+            <option value="ChildCare">Daycare</option>
+        </select>
+        <button
+            type="submit" onClick={'/listing'}
+            className="mt-2 md:mt-0 md:ml-4 px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition duration-300"
+        >
+            Search
+        </button>
+    </form>
     );
 };
 

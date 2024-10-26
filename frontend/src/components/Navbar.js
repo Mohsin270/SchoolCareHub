@@ -3,40 +3,38 @@ import { Link } from 'react-router-dom';
 import logo from '../images/icons/SCH Logo.jpg';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Toggle the mobile menu
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   // Toggle the dropdown menu
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
     <nav className="bg-purple-600 shadow-md">
-      <div className="h-16 flex items-center justify-between py-1 md:p-3">
+      <div className="flex items-center justify-between h-16 py-1 md:p-3">
         {/* Logo and Name */}
-        <div className="flex items-center gap-3 ml-12">
+        <div className="flex items-center gap-3 ml-4 md:ml-12">
           <img src={logo} alt="SchoolCareHub Logo" className="w-10 h-10 object-cover rounded-full" />
           <Link to="/" className="text-white text-2xl font-bold font-serif tracking-wide">SchoolCareHub</Link>
         </div>
 
         {/* Hamburger Menu Icon (Mobile) */}
-        <div className="md:hidden">
-          <button 
-            onClick={toggleMenu} 
-            className="text-white text-2xl focus:outline-none"
-          >
-            ☰
-          </button>
-        </div>
+        <button 
+          onClick={toggleMenu} 
+          className="md:hidden mx-52 text-white text-2xl focus:outline-none"
+        >
+          ☰
+        </button>
 
-        {/* Menu Items (visible on Desktop) */}
-        <div className={`md:flex items-center space-x-8 ${isMenuOpen ? 'block' : 'hidden'} w-full md:w-auto mb-4 mr-6`}>
+        {/* Menu Items */}
+        <div className={`md:flex items-center space-x-8 ${isMenuOpen ? 'block' : 'hidden'} md:block w-full md:w-auto mb-4 md:mb-0 mr-6`}>
           <ul className="flex flex-col md:flex-row items-center md:space-x-6 space-y-2 md:space-y-0 mt-4 md:mt-0 text-white mr-8">
             <li>
               <Link className='pb-2 hover:border-b-2 hover:border-red-700 hover:text-yellow-400 transition-colors duration-200' to="/">Home</Link>
@@ -58,7 +56,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Registration Dropdown (Desktop & Mobile) */}
+          {/* Registration Dropdown */}
           <div className="relative mt-4 md:mt-0">
             <button
               onClick={toggleDropdown}
@@ -66,7 +64,7 @@ const Navbar = () => {
             >
               Registration
             </button>
-            {isOpen && (
+            {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg z-50">
                 <Link
                   to="/login"
@@ -85,16 +83,34 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Items */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-purple-600">
+          <ul className="flex flex-col items-center text-white pb-4">
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/">Home</Link>
+            </li>
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/services">Services</Link>
+            </li>
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/blogs">Blogs</Link>
+            </li>
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/faqs">FAQ's</Link>
+            </li>
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/abouts">About</Link>
+            </li>
+            <li className="w-full text-center">
+              <Link className='block py-2 hover:text-yellow-400' to="/contacts">Contact</Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default Navbar;
-
-
-
-// 1- create empty Node
-// 2- enter data
-// 3- enter address (link)=>default=0
-// 4- if empty, make head
-// 5- else: traverse from head, and find 0 in address & then place address of new node.

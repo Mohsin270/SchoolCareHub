@@ -1,7 +1,7 @@
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from "react";
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
 const ContactUs = () => {
@@ -137,7 +137,7 @@ const ContactUs = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 rounded-lg transition duration-300"
+                        className="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition duration-300"
                         disabled={loading}
                     >
                         {loading ? "Submitting..." : "Submit"}
@@ -158,11 +158,11 @@ const ContactUs = () => {
                     We're here to help you get the most out of our services.
                 </p>
                 <div className="flex justify-center gap-6">
-                    <a href="mailto:support@webflow.com" className="no-underline flex items-center gap-2 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+                    <a href="mailto:schoolcarehub@gmail.com" className="no-underline flex items-center gap-2 bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition duration-300">
                         <FontAwesomeIcon icon={faEnvelope} />
                         Email Us
                     </a>
-                    <a href="tel:+123456789" className="no-underline flex items-center gap-2 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                    <a href="tel:+923171619909" className="no-underline flex items-center gap-2 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
                         <FontAwesomeIcon icon={faPhone} />
                         Call Us
                     </a>

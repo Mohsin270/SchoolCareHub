@@ -33,9 +33,9 @@ const Footer = () => {
         <div className="w-full md:w-1/3 mb-8 md:mb-0 px-4 h-52 text-center">
           <h4 className="w-40 text-[#ccc] mb-4 text-xl font-serif border-b-2 border-purple-600 pb-2 mx-auto">Contact Us</h4>
           <div className=" space-y-2">
-            <p><strong>Email:</strong> <a href="mailto:schoolcare@gmail.com" className="text-gray-400 hover:text-white transition">schoolcare@gmail.com</a></p>
-            <p className='text-left md:ml-14 lg:ml-24'><strong>Cell:</strong> <a href="tel:03121234567" className="text-gray-400 hover:text-white transition">0312 1234567</a></p>
-            <div className="flex space-x-4 mt-4 md:ml-16 lg:ml-28">
+            <p><strong>Email:</strong> <a href="mailto:schoolcarehub@gmail.com" className="text-gray-400 hover:text-white transition">schoolcare@gmail.com</a></p>
+            <p className=''><strong>Cell:</strong> <a href="tel:03171619909" className="text-gray-400 hover:text-white transition">0312 1234567</a></p>
+            <div className="flex space-x-4 mt-4 justify-center">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faFacebookSquare} size="2x" className="text-blue-600 cursor-pointer hover:opacity-80 transition" />
               </a>
@@ -56,7 +56,7 @@ const Footer = () => {
       {/* Footer Bottom Section */}
       <div className="border-t border-gray-600 mt-8 pt-4 text-center">
         <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
-          <span className="text-white">
+          <span className="text-white text-sm">
             &copy; 2024 SchoolCareHub | All Rights Reserved by{' '}
             <Link to="/" className="text-red-600 hover:text-purple-500 transition">Developers</Link>
           </span>

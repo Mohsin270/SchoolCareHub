@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import blogImage1 from "./images/care1.jpeg"; 
 import blogImage2 from "./images/school2.jpg";
 import blogImage3 from "./images/school3.jpg";

@@ -2,7 +2,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from "react";
 import Navbar from './components/Navbar';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import ccimg2 from "./images/DHA-Kindergarten-2.jpg";
 import ccimg3 from "./images/DHA-Kindergarten-3.jpg";
 import ccimg4 from "./images/DHA-Kindergarten-4.jpg";

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from './components/Navbar';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import video1 from './images/care-video0.mp4';
 import ceoPic from './images/phalesteen.jpeg';
 const AboutUs = () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Searchbar from './components/Searchbar';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 
 const InstituteCard = ({ institute }) => (
   <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200">
