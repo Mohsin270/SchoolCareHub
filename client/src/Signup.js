@@ -30,6 +30,7 @@ const Signup = () => {
         if (!password || password.length < 6) return "Password must be at least 6 characters long";
         return null;
     };
+    const R_URL = process.env.REACT_APP_API_URL;
 
     // Submit form
     const handleSubmit = async (e) => {
