@@ -43,7 +43,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/signup`, formData);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users`, formData);
             alert('Registration successful!');
             navigate('/login');  // Navigate to login page after successful signup
         } catch (err) {
