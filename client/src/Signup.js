@@ -45,31 +45,32 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
+    
         if (!validateForm()) return;
-
+    
         try {
-            const response = await fetch(`${R_URL}/api/users/signup`, {
+            const response = await fetch(`${R_URL}/api/auth/signup`, {  // Ensure endpoint is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
-
+    
             const data = await response.json();
-
+    
             if (response.ok) {
                 alert('Congrats! You are registered.');
                 navigate('/login');
             } else {
-                setError(data.message || 'Signup failed');
+                setError(data.msg || 'Signup failed');  // Access error message using `msg`
             }
         } catch (error) {
             console.error('Error:', error);
             setError('An error occurred during signup');
         }
     };
+    
 
     return (
         <div className="min-h-screen flex px-80 items-center bg-purple-400">
