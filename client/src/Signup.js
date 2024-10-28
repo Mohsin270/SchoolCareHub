@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: ''
     });
-    const [error, setError] = useState('');
 
     // Handle input change
     const handleChange = (e) => {
@@ -44,14 +44,14 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post(`${R_URL}/api/users`, formData);
-            alert('Registration successful!');
-            navigate('/login');  // Navigate to login page after successful signup
+            const response = await axios.post(`${R_URL}/api/users/login`, formData);
+            alert('Login successful!');
+            navigate('/admin/dashboard');  // Navigate to the dashboard on successful login
         } catch (err) {
             if (err.response && err.response.data) {
-                setError(err.response.data.msg);  // Display error message from server
+                setError(err.response.data.msg);  // Display error message from the server
             } else {
-                setError('An error occurred during signup');
+                setError('An error occurred during login');
             }
         }
     };

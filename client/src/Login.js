@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import c1 from "./images/care1.jpeg"; // Background image
-const R_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
     const navigate = useNavigate();
+    const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
-    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,6 +31,7 @@ const Login = () => {
         }
         return true;
     };
+    const R_URL = process.env.REACT_APP_API_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
