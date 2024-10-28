@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import c1 from "./images/care1.jpeg"; // Background image
+const R_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Login = () => {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/users/login', {
+            const response = await fetch(`${R_URL}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -51,7 +52,7 @@ const Login = () => {
 
             if (response.ok) {
                 alert('Logged in successfully!');
-                navigate('/');
+                navigate('/admin/dashboard');
             } else {
                 setError(data.message || 'Login failed');
             }

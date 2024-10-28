@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import c1 from "./images/care2.jpg";
+const R_URL = process.env.REACT_APP_API_URL;
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Signup = () => {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/users/signup', {
+            const response = await fetch(`${R_URL}/api/users/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
