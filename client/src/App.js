@@ -18,6 +18,9 @@ import Register from "./Register";
 import ServicePage from "./Services";
 import SignuPage from "./Signup";
 import AllBlogs from "./AllBlogs";
+import Daycares from './Daycares';
+import SpecialChildcare from './SpecialChildCare';
+import RightSchool from './RightSchool';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
           <Route exact path="/abouts" element={<AboutPage />} />
           <Route exact path="/contacts" element={<ContactPage />} />
           <Route exact path="/services" element={<ServicePage />} />
+          <Route path="/services/daycares" element={<Daycares />} />
+          <Route path="/services/special-childcare" element={<SpecialChildcare />} />
+          <Route path="/services/right-school" element={<RightSchool />} />
           <Route exact path="/blogs" element={<BlogPage />} />
           <Route exact path="/all-blogs" element={<AllBlogs />} />
           <Route exact path="/faqs" element={<FAQPage />} />

@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* About Us Section */}
         <div className="w-full md:w-1/3 mb-8 md:mb-0 px-4 text-center">
-          <h4 className="w-40 text-[#ccc] mb-4 text-xl font-serif border-b-2 border-purple-600 pb-2 mx-auto">Useful Links</h4>
+          <h4 className="w-40 text-[#ccc] mb-4 text-xl font-serif border-b-2 border-purple-600 pb-2 mx-auto">SchoolCare</h4>
           <p className="text-justify leading-relaxed">
             Welcome to SchoolCareHub. Our mission is to create a supportive and enriching environment for children,
             where they can grow, learn, and thrive. At SchoolCareHub, we believe that every child deserves the best

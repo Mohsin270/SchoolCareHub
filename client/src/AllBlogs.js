@@ -6,6 +6,7 @@ import blogImage2 from "./images/school2.jpg";
 import blogImage3 from "./images/school3.jpg";
 import blogImage4 from "./images/school4.jpg";
 import blogImage5 from "./images/school5.jpg";
+import { Link } from 'react-router-dom';
 
 const AllBlogs = () => {
   // Blog data
@@ -98,9 +99,9 @@ const AllBlogs = () => {
                         <div className='p-5 flex-1'>
                           <h3 className='text-xl font-semibold text-gray-800 mb-3'>{blog.title}</h3>
                           <p className='text-gray-600 mb-4'>{blog.description}</p>
-                          <a href={blog.link} className='text-purple-600 hover:text-purple-800 font-semibold'>
+                          <Link to="/services/right-school" className='text-purple-600 hover:text-purple-800 font-semibold'>
                             Read More &rarr;
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

@@ -6,6 +6,9 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import BlogRoutes from './routes/blogRoutes.js';
 import instituteRoutes from './routes/instituteRoutes.js';
+import subscriberRoutes from './routes/subscriber.js';
+import contactRoutes from './routes/contactR.js';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -24,6 +27,8 @@ app.use(express.json());
 app.use('/api/users', authRoutes);
 app.use('/api/register', instituteRoutes);
 app.use('/api/blog', BlogRoutes);
+app.use('/api/subscribe', subscriberRoutes);
+app.use('/api/contact', contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 

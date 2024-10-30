@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
-        userRole: "",
+        name: "",
         email: "",
         subject: "",
         description: "",
@@ -14,6 +14,7 @@ const ContactUs = () => {
     const [formErrors, setFormErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,7 +26,7 @@ const ContactUs = () => {
 
     const validate = () => {
         const errors = {};
-        if (!formData.userRole) errors.userRole = "Role is required";
+        if (!formData.name) errors.name = "Role is required";
         if (!formData.email) {
             errors.email = "Email is required";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -36,27 +37,45 @@ const ContactUs = () => {
         return errors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const errors = validate();
         setFormErrors(errors);
-
+    
         if (Object.keys(errors).length === 0) {
-            setIsSubmitted(true);
+            setIsSubmitted(false);
             setLoading(true);
-            console.log("Form submitted successfully with data:", formData);
-            setFormData({
-                userRole: "",
-                email: "",
-                subject: "",
-                description: "",
-            });
-            setTimeout(() => {
-                setIsSubmitted(false);
+    
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+    
+                const data = await response.json();
+                if (response.ok) {
+                    setIsSubmitted(true);
+                    setMessage(data.message);
+                    setFormData({
+                        name: '',
+                        email: '',
+                        subject: '',
+                        description: '',
+                    });
+                } else {
+                    setMessage(data.message);
+                }
+            } catch (error) {
+                setMessage('Failed to send message. Please try again.');
+            } finally {
                 setLoading(false);
-            }, 3000);
+            }
         }
     };
+    
 
     return (
         <div className="bg-gray-50 min-h-screen">
@@ -73,24 +92,20 @@ const ContactUs = () => {
             {/* Contact Form Section */}
             <section className="p-6 md:p-16 bg-white mx-auto my-10 rounded-lg shadow-2xl max-w-2xl">
                 <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Get in Touch</h2>
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmit}> 
                     <div className="form-group">
-                        <label htmlFor="userRole" className="block text-lg font-medium">Role:</label>
-                        <select
-                        name="userRole"
-                        value={formData.userRole}
+                        <label htmlFor="name" className="block text-lg font-medium">Name:</label>
+                        <input
+                        type="text"
+                        // id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                        placeholder="Enter your Name"
                         required
-                        >
-                        <option value="">Select Your Role</option>
-                        <option value="admin">Admin</option>
-                        <option value="accountant">Accountant</option>
-                        <option value="stockHolder">Purchaser</option>
-                        <option value="employee">Employee</option>
-                        <option value="agent">Agent</option>
-                        </select>
-                        {formErrors.userRole && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
+                        />
+                        {formErrors.name && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
                     </div>
 
                     <div className="form-group">
@@ -102,7 +117,7 @@ const ContactUs = () => {
                             value={formData.email}
                             onChange={handleChange}
                             className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                            placeholder="Enter your official email"
+                            placeholder="Enter your official email" required
                         />
                         {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
                     </div>
@@ -116,7 +131,7 @@ const ContactUs = () => {
                             value={formData.subject}
                             onChange={handleChange}
                             className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.subject ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                            placeholder="Enter the subject"
+                            placeholder="Enter the topic"
                         />
                         {formErrors.subject && <p className="text-red-500 text-sm mt-1">{formErrors.subject}</p>}
                     </div>
@@ -142,6 +157,11 @@ const ContactUs = () => {
                     >
                         {loading ? "Submitting..." : "Submit"}
                     </button>
+                    {message && (
+                        <p className={`text-center mt-4 ${isSubmitted ? 'text-green-500' : 'text-red-500'}`}>
+                            {message}
+                        </p>
+                    )}
                     {isSubmitted && !loading && (
                         <p className="text-green-500 text-sm mt-4 text-center">
                             Thank you for contacting us. We will get back to you soon!
@@ -150,7 +170,7 @@ const ContactUs = () => {
                 </form>
             </section>
 
-             {/* Contact Support Section */}
+             {/* Contact information Section */}
              <section className="bg-white py-16 px-10 text-center">
                 <h2 className="text-4xl font-bold text-gray-800 mb-4">Need More Help?</h2>
                 <p className="text-lg text-gray-600 max-w-xl mx-auto mb-6">

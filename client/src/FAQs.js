@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
@@ -8,12 +8,8 @@ import Navbar from "./components/Navbar";
 const FAQs = () => {
     const [showMore, setShowMore] = useState(false);
     const [openFAQs, setOpenFAQs] = useState({});
-    const [formData, setFormData] = useState({ name: '', email: '', question: '' });
-    const [formErrors, setFormErrors] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [faqs, setFaqs] = useState([]);
     const [loading, setLoading] = useState(false);
-
     const R_URL = process.env.REACT_APP_API_URL;
 
     // Sample FAQs for SchoolCare
@@ -61,41 +57,6 @@ const FAQs = () => {
         }));
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const validateForm = () => {
-        const errors = {};
-        if (!formData.name) errors.name = 'Name is required';
-        if (!formData.email) {
-            errors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            errors.email = 'Email is invalid';
-        }
-        if (!formData.question) errors.question = 'Question is required';
-        return errors;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const errors = validateForm();
-        setFormErrors(errors);
-    
-        if (Object.keys(errors).length === 0) {
-            try {
-                const response = await axios.post(`${R_URL}/api/faqs`, formData);
-                console.log(response.data.message);
-                setIsSubmitted(true);
-                setFormData({ name: '', email: '', question: '' });
-                setTimeout(() => setIsSubmitted(false), 3000);
-                fetchFaqs(); // Refresh the FAQs list after submitting a new question
-            } catch (error) {
-                console.error('Error submitting question:', error);
-            }
-        }
-    };
 
     const visibleFaqs = showMore ? faqs : faqs.slice(0, 5); // Display 5 FAQs by default
 
@@ -110,57 +71,6 @@ const FAQs = () => {
                     Find answers to some of the most common questions about SchoolCare, our services, and more.
                 </p>
             </div>
-            
-            {/* Can't Find Your Question? Section */}
-            <section className="bg-white p-10 md:p-14">
-                <div className="max-w-2xl mx-auto bg-gray-100 rounded-lg shadow-md p-6">
-                    <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Can't Find Your Question?</h2>
-                    <p className="text-lg text-gray-600 text-center mb-6">
-                        If you don't find the answer you're looking for, please submit your question below, and our support team will get back to you.
-                    </p>
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Your Name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                        />
-                        {formErrors.name && <p className="text-red-500 text-sm">{formErrors.name}</p>}
-
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Your Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                        />
-                        {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
-
-                        <textarea
-                            name="question"
-                            rows="4"
-                            placeholder="Write your question here..."
-                            value={formData.question}
-                            onChange={handleChange}
-                            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${formErrors.question ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                        ></textarea>
-                        {formErrors.question && <p className="text-red-500 text-sm">{formErrors.question}</p>}
-
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-                        >
-                            Submit Your Question
-                        </button>
-                        {isSubmitted && (
-                            <p className="text-green-500 text-center mt-4">Thank you! Your question has been submitted. We'll get back to you soon.</p>
-                        )}
-                    </form>
-                </div>
-            </section>
 
             {/* FAQ Section */}
             <section className="p-10 md:p-14 bg-gray-100">
@@ -198,6 +108,24 @@ const FAQs = () => {
                             {showMore ? "Show Less" : "Show More"}
                         </button>
                     )}
+                </div>
+            </section>
+                {/* Contact Support Section */}
+            <section className="bg-white py-16 px-10 text-center">
+                <h2 className="text-4xl font-bold text-gray-800 mb-4">Need More Help?</h2>
+                <p className="text-lg text-gray-600 max-w-xl mx-auto mb-6">
+                    If you can't find the answer to your question, feel free to reach out to our support team.
+                    We're here to help you get the most out of our services.
+                </p>
+                <div className="flex justify-center gap-6">
+                    <a href="mailto:schoolcarehub@gmail.com" className="no-underline flex items-center gap-2 bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition duration-300">
+                        <FontAwesomeIcon icon={faEnvelope} />
+                        Email Us
+                    </a>
+                    <a href="tel:+923171619909" className="no-underline flex items-center gap-2 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                        <FontAwesomeIcon icon={faPhone} />
+                        Call Us
+                    </a>
                 </div>
             </section>
 

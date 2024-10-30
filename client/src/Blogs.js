@@ -12,12 +12,41 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Blogs = () => {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const R_URL = process.env.REACT_APP_API_URL;
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+          const response = await fetch(`${R_URL}/api/subscribe`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+              setMessage(data.message);
+              setEmail(''); // Clear input after successful subscription
+          } else {
+              setMessage(data.message);
+          }
+      } catch (error) {
+          setMessage('Subscription failed. Please try again later.');
+      }
+  };
+
   const blogs = [
-    { id: 1, title: 'Top 5 Child Care Tips for Parents', image: blogImage1, description: 'Learn essential tips...', link: '/blog/child-care-tips' },
-    { id: 2, title: 'Understanding Early Childhood Education', image: blogImage2, description: 'Discover the importance...', link: '/blog/early-childhood-education' },
-    { id: 3, title: 'How to Support Your Child’s Learning at Home', image: blogImage3, description: 'Explore strategies...', link: '/blog/support-learning-at-home' },
-    { id: 4, title: 'Choosing the Right School for Your Child', image: blogImage4, description: 'Explore tips and considerations...', link: '/blog/choosing-the-right-school' },
-    { id: 5, title: 'The Importance of Communication in Child Care', image: blogImage5, description: 'Learn about effective communication...', link: '/blog/importance-of-communication' },
+    { id: 1, title: 'Top 5 Child Care Tips for Parents', picc: blogImage1, description: 'Learn essential tips...', link: '/blog/child-care-tips' },
+    { id: 2, title: 'Understanding Early Childhood Education', picc: blogImage2, description: 'Discover the importance...', link: '/blog/early-childhood-education' },
+    { id: 3, title: 'How to Support Your Child’s Learning at Home', picc: blogImage3, description: 'Explore strategies...', link: '/blog/support-learning-at-home' },
+    { id: 4, title: 'Choosing the Right School for Your Child', picc: blogImage4, description: 'Explore tips and considerations...', link: '/blog/choosing-the-right-school' },
+    { id: 5, title: 'The Importance of Communication in Child Care', picc: blogImage5, description: 'Learn about effective communication...', link: '/blog/importance-of-communication' },
   ];
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,9 +71,9 @@ const Blogs = () => {
         {/* Header Section with Slider */}
         <header className="w-full h-96 relative">
           <Slider {...sliderSettings}>
-            {[blogImage1, blogImage2, blogImage3, blogImage4].map((image, index) => (
+            {[blogImage1, blogImage2, blogImage3, blogImage4].map((picc, index) => (
               <div key={index}>
-                <img src={image} alt={`Slider Image ${index + 1}`} className="w-full h-96 object-cover" />
+                <img src={picc} alt={`Slider Imagee ${index + 1}`} className="w-full h-96 object-cover" />
               </div>
             ))}
           </Slider>
@@ -68,7 +97,7 @@ const Blogs = () => {
               <p className="text-gray-600 text-lg">
                 Selecting the right school is crucial for your child's development. Explore our tips and considerations to make an informed decision.
               </p>
-              <Link to="/blog/choosing-the-right-school" className="mt-4 inline-block bg-purple-500 text-white px-6 py-3 rounded-md hover:bg-purple-600 transition duration-300">
+              <Link to="/services/right-school" className="mt-4 inline-block bg-purple-500 text-white px-6 py-3 rounded-md hover:bg-purple-600 transition duration-300">
                 Read More
               </Link>
             </div>
@@ -83,11 +112,11 @@ const Blogs = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredBlogs.slice(1, 4).map(blog => (
               <div key={blog.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src={blog.image} alt={blog.title} className="w-full h-56 object-cover" />
+                <img src={blog.picc} alt={blog.title} className="w-full h-56 object-cover" />
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-800">{blog.title}</h3>
                   <p className="text-gray-600 mt-2">{blog.description}</p>
-                  <Link to={blog.link} className="mt-4 inline-block text-purple-500 hover:text-purple-600 font-bold">
+                  <Link to="/services/right-school" className="mt-4 inline-block text-purple-500 hover:text-purple-600 font-bold">
                     Read More
                   </Link>
                 </div>
@@ -103,20 +132,24 @@ const Blogs = () => {
 
         {/* Subscription Section */}
         <section className="my-12 px-6 bg-purple-500 py-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-white">Subscribe to Our Blog</h2>
-            <p className="text-white text-lg mt-2">Stay updated with the latest tips and resources for school and child care services delivered straight to your inbox.</p>
-            <form className="mt-6 flex flex-col md:flex-row justify-center">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full md:w-1/3 px-4 py-3 mt-4 rounded-l-lg focus:outline-none"
-              />
-              <button type="submit" className="mt-4 md:mt-0 bg-gray-800 text-white px-6 py-3 rounded-r-lg hover:bg-gray-700 transition duration-300">
-                Subscribe
-              </button>
-            </form>
-          </div>
+            <div className="text-center">
+                <h2 className="text-3xl font-bold text-white">Subscribe to Our Blog</h2>
+                <p className="text-white text-lg mt-2">Stay updated with the latest tips and resources for school and child care services delivered straight to your inbox.</p>
+                <form className="mt-6 flex flex-col md:flex-row justify-center" onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full md:w-1/3 px-4 py-3 mt-4 rounded-l-lg focus:outline-none"
+                        required
+                    />
+                    <button type="submit" className="mt-4 md:mt-0 bg-gray-800 text-white px-6 py-3 rounded-r-lg hover:bg-gray-700 transition duration-300">
+                        Subscribe
+                    </button>
+                </form>
+                {message && <p className="text-green-900 mt-4">{message}</p>}
+            </div>
         </section>
       </div>
       <Footer />
