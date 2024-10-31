@@ -1,56 +1,84 @@
-// backend/routes/authRoutes.js
 import express from 'express';
 import User from '../models/user.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-// Signup Route
-router.post('/', async (req, res) => {
-  const { name, email, password} = req.body;
+// Register User
+router.post('/signup', async (req, res) => {
+  const { name, email, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
-    }
+    if (user) return res.status(400).json({ msg: 'User already exists' });
 
-    // Save password as a plain string (no hashing)
-    user = new User({
-      name,
-      email,
-      password,
-    });
-
+    user = new User({ name, email, password });
     await user.save();
 
-    res.status(201).json({ msg: 'User created successfully', user });
+    res.status(201).json({ msg: 'User created successfully' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 });
-
-// Route for user login with role check
+// Login User
 router.post('/login', async (req, res) => {
-  const { email, password, userRole } = req.body;
+  const { email, password } = req.body;
+
+  // Validate input fields
+  if (!email || !password) {
+      return res.status(400).json({ msg: 'Please enter all fields' });
+  }
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: 'User not registered' });
-    }
+      // Check if the user exists
+      const user = await User.findOne({ email });
+      if (!user) {
+          return res.status(400).json({ msg: 'User not registered' });
+      }
 
-    // Simple string comparison (since password is not hashed)
-    if (user.password !== password) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
-    }
+      // Verify the user's password
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(400).json({ msg: 'Invalid credentials' });
+      }
 
-    // Check if the userRole matches
-    if (user.userRole !== userRole) {
-      return res.status(403).json({ msg: 'User does not have the required role' });
-    }
+      // Check if the user role matches the role passed in the request
+      // if (user.role !== userRole) {
+      //     return res.status(403).json({ msg: 'Unauthorized access for the selected role' });
+      // }
 
-    res.json({ msg: 'Login successful', user });
+      // Generate token and include user role and name for role-based access control
+      const token = jwt.sign(
+          { id: user._id, role: user.role },
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+      );
+
+      // Respond with token and basic user information
+      res.json({
+          token,
+          user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      });
+
+  } catch (err) {
+      console.error('Server Error:', err.message);
+      res.status(500).send('Server error');
+  }
+});
+
+// Get User Information
+router.get('/', async (req, res) => {
+  try {
+    const token = req.header('x-auth-token');
+    if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-password'); // Exclude password from response
+    if (!user) return res.status(404).json({ msg: 'User not found' });
+
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
