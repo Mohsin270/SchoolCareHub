@@ -17,11 +17,15 @@ const Dashboard = () => {
               <p>100</p>
             </div>
             <div className="stat-box">
+              <h3>Total Reviews</h3>
+              <p>200</p>
+            </div>
+            <div className="stat-box">
               <h3>Verified Requests</h3>
               <p>50</p>
             </div>
             <div className="stat-box">
-              <h3>Pending Verifications</h3>
+              <h3>Pending Requests</h3>
               <p>20</p>
             </div>
             <div className="stat-box">

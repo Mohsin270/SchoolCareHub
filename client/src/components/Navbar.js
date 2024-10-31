@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/icons/logo.jpg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+   const navigate = useNavigate();
+   
   // Toggle the mobile menu
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-  };
-
-  // Toggle the dropdown menu
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -57,30 +52,21 @@ const Navbar = () => {
           </ul>
 
           {/* Registration Dropdown */}
-          <div className="relative mt-4 md:mt-0">
-            <button
-              onClick={toggleDropdown}
-              className="bg-red-500 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg focus:outline-none transition-colors duration-200"
-            >
-              Registration
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg z-50">
-                <Link
-                  to="/login"
-                  className="block px-4 py-2 text-gray-700 hover:bg-yellow-300 rounded-t transition-colors duration-200"
-                >
+          <div className="mt-4 md:mt-0 flex space-x-2">
+              <button
+                  onClick={() => navigate('/login')}
+                  className="bg-red-500 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg focus:outline-none transition-colors duration-200"
+              >
                   Users
-                </Link>
-                <Link
-                  to="/register"
-                  className="block px-4 py-2 text-gray-700 hover:bg-yellow-300 rounded-b transition-colors duration-200"
-                >
+              </button>
+              <button
+                  onClick={() => navigate('/register')}
+                  className="bg-red-500 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg focus:outline-none transition-colors duration-200"
+              >
                   Institutes
-                </Link>
-              </div>
-            )}
+              </button>
           </div>
+
         </div>
       </div>
 
