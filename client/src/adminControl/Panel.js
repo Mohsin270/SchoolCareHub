@@ -29,12 +29,12 @@ const Panel = () => {
               className="w-full flex justify-between items-center text-white text-xl px-3 py-2 rounded hover:bg-indigo-900 transition duration-200 text-left"
             >
               Institutes
-              <span className="ml-2 text-gray-500">{isInstitutesOpen ? '▲' : '▼'}</span>
+              <span className="ml-2 text-gray-500 text-sm">{isInstitutesOpen ? '▲' : '▼'}</span>
             </button>
             {isInstitutesOpen && (
               <div className="mt-2 ml-3 space-y-2">
                 <Link 
-                  to="/admin/view-institutes"
+                  to="/admin/institutes"
                   className="block text-white text-lg px-3 py-2 rounded hover:bg-indigo-900 transition duration-200"
                 >
                   List of Institutes
@@ -56,7 +56,7 @@ const Panel = () => {
               className="w-full flex justify-between items-center text-white text-xl px-3 py-2 rounded hover:bg-indigo-900 transition duration-200 text-left"
             >
               Requests
-              <span className="ml-2 text-gray-500">{isRequestsOpen ? '▲' : '▼'}</span>
+              <span className="ml-2 text-gray-500 text-sm">{isRequestsOpen ? '▲' : '▼'}</span>
             </button>
             {isRequestsOpen && (
               <div className="mt-2 ml-3 space-y-2">

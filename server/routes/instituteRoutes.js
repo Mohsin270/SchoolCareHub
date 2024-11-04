@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Institute from '../models/institutes.js';
+
 const router = Router();
 
 // POST route for school/daycare registration
@@ -63,6 +64,17 @@ router.get('/search', async (req, res) => {
   } catch (err) {
     console.error("Error searching records:", err);
     res.status(500).json({ error: 'An error occurred during search.' });
+  }
+});
+
+// NEW: GET route to fetch all institutes
+router.get('/', async (req, res) => {
+  try {
+    const institutes = await Institute.find({});
+    res.json(institutes);
+  } catch (err) {
+    console.error("Error fetching institutes:", err);
+    res.status(500).json({ error: 'An error occurred while fetching institutes.' });
   }
 });
 

@@ -5,13 +5,13 @@ import BlogM from "./adminControl/BlogM";
 import Dashboard from './adminControl/Dashboard';
 import ReportReviews from './adminControl/ReportReviews';
 import VerifyRequests from './adminControl/VerifyRequests';
-import ViewInstitutes from './adminControl/ViewInstitutes';
+import ViewInstitutes from './adminControl/InstituteList';
 import BlogPage from "./Blogs";
 import FAQPage from "./FAQs";
 import ContactPage from "./ContactUs";
 import HomeP from "./Home";
 import './index.css';
-import Listing from "./InstitutesList";
+import Listing from "./Listing";
 import LoginPage from "./Login";
 import Profile from "./Profile";
 import Register from "./Register";
@@ -45,8 +45,8 @@ function App() {
           <Route exact path="/listing" element={<Listing />} />
 
           <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/institutes" element={<ViewInstitutes />} />
           <Route path="/admin/add-institute" element={<AddInstitute />} />
-          <Route path="/admin/view-institutes" element={<ViewInstitutes />} />
           <Route path="/admin/verify-requests" element={<VerifyRequests />} />
           <Route path="/admin/report-reviews" element={<ReportReviews />} />
           <Route path="/admin/blogM" element={<BlogM />} />
