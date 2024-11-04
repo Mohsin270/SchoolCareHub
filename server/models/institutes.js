@@ -1,47 +1,53 @@
-// models/School.js
 import mongoose from 'mongoose';
 
-const schoolSchema = new mongoose.Schema({
+const instituteSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['School', 'ChildCare'], // Specify valid categories
+    enum: ['School', 'ChildCare'],
   },
   Name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true, // Ensure unique email
+    unique: true,
     lowercase: true,
     trim: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Simple email regex for validation
   },
   phone: {
     type: String,
     required: true,
     trim: true,
+    match: /^[0-9]{10,12}$/, // Basic phone validation for 10-12 digits
   },
   location: {
     type: String,
     required: true,
+    trim: true,
   },
   licenceNo: {
     type: String,
     required: true,
+    unique: true,
+    trim: true,
   },
   schoolType: {
     type: String,
-    required: function () { return this.category === 'School'; }, // Conditional requirement
+    required: function () { return this.category === 'School'; },
   },
   syllabusType: {
     type: String,
-    required: function () { return this.category === 'School'; }, // Conditional requirement
+    required: function () { return this.category === 'School'; },
   },
   fee: {
     type: String,
     required: true,
+    trim: true,
   },
   rating: {
     type: Number,
@@ -52,16 +58,17 @@ const schoolSchema = new mongoose.Schema({
   religion: {
     type: String,
     required: true,
+    trim: true,
   },
   careType: {
     type: String,
-    required: function () { return this.category === 'ChildCare'; }, // Conditional requirement
+    required: function () { return this.category === 'ChildCare'; },
   },
   openingHours: {
     type: String,
     required: true,
   },
-}, { timestamps: true }); // Adds createdAt and updatedAt timestamps
+}, { timestamps: true });
 
-const School = mongoose.model('School', schoolSchema);
-export default School;
+const Institute = mongoose.model('Institute', instituteSchema);
+export default Institute;

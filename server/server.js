@@ -5,7 +5,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import BlogRoutes from './routes/blogRoutes.js';
-import instituteRoutes from './routes/instituteRoutes.js';
+import InstituteRoutes from './routes/instituteRoutes.js';
 import subscriberRoutes from './routes/subscriber.js';
 import contactRoutes from './routes/contactR.js';
 
@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 // Define Routes
 app.use('/api/users', authRoutes);
-app.use('/api/register', instituteRoutes);
+app.use('/api/institutes', InstituteRoutes);
 app.use('/api/blog', BlogRoutes);
 app.use('/api/subscribe', subscriberRoutes);
 app.use('/api/contact', contactRoutes);

@@ -51,7 +51,7 @@ const Home = () => {
 
                 {/* Search Bar */}
                 <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 w-full max-w-[900px] px-4">
-                    <h2 className="md:text-6xl font-semibold text-blue-500 md:mb-20">Find the Best Institutes<br /> Nearby</h2>
+                    <h2 className="md:text-6xl font-semibold text-blue-100 md:mb-20">Find the Best Institutes Nearby</h2>
                     <Searchbar />
                 </div>
             </div>

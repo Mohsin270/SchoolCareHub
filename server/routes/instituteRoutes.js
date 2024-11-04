@@ -1,6 +1,5 @@
-// routes/register.js
 import { Router } from 'express';
-import School from '../models/register.js';
+import Institute from '../models/institutes.js';
 const router = Router();
 
 // POST route for school/daycare registration
@@ -22,8 +21,8 @@ router.post('/', async (req, res) => {
       openingHours,
     } = req.body;
 
-    // Create a new school object
-    const newSchool = new School({
+    // Create a new institute object
+    const newInstitute = new Institute({
       category,
       Name,
       email,
@@ -39,37 +38,32 @@ router.post('/', async (req, res) => {
       openingHours,
     });
 
-    // Save the school to the database
-    await newSchool.save();
-
-    // Respond with a success message
-    res.status(200).json({ msg: 'School registered successfully!' });
+    // Save the institute to the database
+    await newInstitute.save();
+    res.status(201).json({ msg: 'Institute registered successfully!' });
   } catch (error) {
-    console.error('Error registering school:', error);
-    res.status(500).json({ msg: 'Error registering school', error });
-  }
-});
-// GET route for searching schools or daycare by location and category
-router.get('/search', async (req, res) => {
-  try {
-    const { location, category } = req.query; // Retrieve location and category from query params
-    console.log({ location, category });
-
-    // Find schools or daycare centers based on location and category
-    const results = await School.find({
-      location: { $regex: location, $options: 'i' }, // Case-insensitive location matching
-      category: category
-    });
-
-    // Check if any results were found
-    if (results.length > 0) {
-      res.status(200).json(results); // Return the found results
+    console.error('Error registering institute:', error);
+    if (error.code === 11000) { // Handle duplicate key error for unique fields
+      res.status(409).json({ msg: 'Institute with this email or licence number already exists.' });
     } else {
-      res.status(404).json({ msg: 'No schools or daycares found matching your criteria' });
+      res.status(500).json({ msg: 'Error registering institute', error });
     }
-  } catch (error) {
-    console.error('Error fetching schools/daycares:', error);
-    res.status(500).json({ msg: 'Server error', error });
   }
 });
+
+// GET route to search for institutes by location and category
+router.get('/search', async (req, res) => {
+  const { location, category } = req.query;
+  try {
+    const results = await Institute.find({
+      location: { $regex: location, $options: 'i' },
+      category: category,
+    });
+    res.json(results);
+  } catch (err) {
+    console.error("Error searching records:", err);
+    res.status(500).json({ error: 'An error occurred during search.' });
+  }
+});
+
 export default router;
